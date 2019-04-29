@@ -62,9 +62,7 @@ class ApiController extends Controller
         $posts = Request::all();
         $posts_keys = array_keys($posts);
         $posts_values = array_values($posts);
-
         $row_api = DB::table('cms_apicustom')->where('permalink', $this->permalink)->first();
-
         $action_type = $row_api->aksi;
         $table = $row_api->tabel;
         $pk = CRUDBooster::pk($table);
@@ -104,7 +102,18 @@ class ApiController extends Controller
 
         @$parameters = unserialize($row_api->parameters);
         @$responses = unserialize($row_api->responses);    
-
+        
+        /*
+        | ----------------------------------------------
+        | Check parameters in url
+        | ----------------------------------------------
+        |
+        */
+        $params = Request::route()->parameters();
+        if ( count($params) > 0 ) {
+            $posts = array_merge($posts, $params);
+        }
+        
         /*
         | ----------------------------------------------
         | User Data Validation

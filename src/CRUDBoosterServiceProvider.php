@@ -15,9 +15,12 @@ class CRUDBoosterServiceProvider extends ServiceProvider
      * @return void
      */
 
+    public static function getViewsFolder() {
+        return __DIR__.'/views';
+    }
+
     public function boot()
     {        
-                                
         $this->loadViewsFrom(__DIR__.'/views', 'crudbooster');
         $this->publishes([__DIR__.'/configs/crudbooster.php' => config_path('crudbooster.php')],'cb_config');            
         $this->publishes([__DIR__.'/localization' => resource_path('lang')], 'cb_localization');                 

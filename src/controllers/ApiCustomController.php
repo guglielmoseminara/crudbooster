@@ -287,7 +287,6 @@ class ApiCustomController extends CBController
         $a['aksi'] = $posts['aksi'];
         $a['permalink'] = g('permalink');
         $a['method_type'] = g('method_type');
-
         $params_name = g('params_name');
         $params_type = g('params_type');
         $params_config = g('params_config');
@@ -336,7 +335,7 @@ class ApiCustomController extends CBController
             DB::table('cms_apicustom')->where('id', g('id'))->update($a);
         } else {
 
-            $controllerName = ucwords(str_replace('_', ' ', $a['permalink']));
+            $controllerName = ucwords(str_replace('_', ' ', $a['nama']));
             $controllerName = str_replace(' ', '', $controllerName);
             CRUDBooster::generateAPI($controllerName, $a['tabel'], $a['permalink'], $a['method_type']);
 

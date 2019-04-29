@@ -5,18 +5,25 @@ $namespace = '\crocodicstudio\crudbooster\controllers';
 
 Route::group(['middleware' => ['api', '\crocodicstudio\crudbooster\middlewares\CBAuthAPI'], 'namespace' => 'App\Http\Controllers'], function () {
     //Router for custom api defeault
-
-    $dir = scandir(base_path("app/Http/Controllers"));
+    $apis = DB::table('cms_apicustom')->get();
+    foreach ($apis as $a) {
+        $controllerName = ucwords(str_replace('_', ' ', $a->nama));
+        $controllerName = str_replace(' ', '', $controllerName);
+        $controllerName = 'Api'.$controllerName.'Controller';
+        Route::any('api/'.$a->permalink, $controllerName.'@execute_api');
+    }
+    /*$dir = scandir(base_path("app/Http/Controllers"));
     foreach ($dir as $v) {
         $v = str_replace('.php', '', $v);
         $names = array_filter(preg_split('/(?=[A-Z])/', str_replace('Controller', '', $v)));
         $names = strtolower(implode('_', $names));
-
         if (substr($names, 0, 4) == 'api_') {
             $names = str_replace('api_', '', $names);
+            echo 'api/'.$names."<br>";
             Route::any('api/'.$names, $v.'@execute_api');
         }
     }
+    exit();*/
 });
 
 /* ROUTER FOR UPLOADS */

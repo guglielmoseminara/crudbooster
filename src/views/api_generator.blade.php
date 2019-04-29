@@ -48,23 +48,6 @@
                             $(this).selectText();
                         });
 
-
-                        $('#input-nama').on('input', function () {
-                            var v = $(this).val();
-                            if (v) {
-                                v = v.replace(/[^0-9a-z]/gi, '_').toLowerCase();
-                                $('#input-permalink').val(v);
-                            } else {
-                                $('#input-permalink').val('');
-                            }
-                        })
-
-                        $('#input-permalink').on('input', function () {
-                            var v = $(this).val();
-                            v = v.replace(/[^0-9a-z]/gi, '_').toLowerCase();
-                            $('#input-permalink').val(v);
-                        })
-
                         $('#tipe_action').change(function () {
                             var v = $(this).val();
                             $('.method_type').prop('checked', false);
